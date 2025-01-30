@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Form View Buku -->
+  <record id="view_buku_form" model="ir.ui.view">
+    <field name="name">buku.form</field>
+    <field name="model">buku</field>
+    <field name="arch" type="xml">
+      <form string="Buku">
+        <sheet>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="kode_buku"/>
+              <field name="penulis"/>
+              <field name="penerbit"/>
+              <field name="tahun_terbit"/>
+            </group>
+            <group>
+              <field name="isbn"/>
+              <field name="bahasa"/>
+              <field name="jumlah_halaman"/>
+              <field name="jumlah_tersedia"/>
+              <field name="status"/>
+            </group>
+          </group>
+          <notebook>
+            <page string="Deskripsi">
+              <field name="deskripsi"/>
+            </page>
+            <page string="Perpustakaan">
+              <field name="perpus_ids"/>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- list View Buku -->
+  <record id="view_buku_list" model="ir.ui.view">
+    <field name="name">buku.list</field>
+    <field name="model">buku</field>
+    <field name="arch" type="xml">
+      <list string="Buku">
+        <field name="kode_buku"/>
+        <field name="name"/>
+        <field name="penulis"/>
+        <field name="penerbit"/>
+        <field name="tahun_terbit"/>
+        <field name="jumlah_tersedia"/>
+        <field name="status"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Form View Perpustakaan -->
+  <record id="view_perpus_form" model="ir.ui.view">
+    <field name="name">perpus.form</field>
+    <field name="model">perpus</field>
+    <field name="arch" type="xml">
+      <form string="Perpustakaan">
+        <sheet>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="peminjam"/>
+              <field name="email_peminjam"/>
+              <field name="phone_peminjam"/>
+            </group>
+            <group>
+              <field name="buku_id"/>
+              <field name="judul_buku"/>
+              <field name="kode_buku"/>
+              <field name="penulis"/>
+              <field name="penerbit"/>
+              <field name="tahun_terbit"/>
+            </group>
+          </group>
+          <notebook>
+            <page string="Deskripsi">
+              <field name="deskripsi"/>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- list View Perpustakaan -->
+  <record id="view_perpus_list" model="ir.ui.view">
+    <field name="name">perpus.list</field>
+    <field name="model">perpus</field>
+    <field name="arch" type="xml">
+      <list string="Perpustakaan">
+        <field name="buku_id"/>
+        <field name="judul_buku"/>
+        <field name="kode_buku"/>
+        <field name="penulis"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Action Buku -->
+  <record id="action_buku" model="ir.actions.act_window">
+    <field name="name">Buku</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">buku</field>
+    <field name="view_mode">list,form,kanban</field>
+  </record>
+
+  <!-- Action Perpustakaan -->
+  <record id="action_perpus" model="ir.actions.act_window">
+    <field name="name">Perpustakaan</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">perpus</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <!-- Menu Items -->
+  <menuitem id="menu_perpustakaan_root" name="Perpustakaan" sequence="10" web_icon="E-Library,static/description/icon.png"/>
+
+  <menuitem id="menu_perpustakaan_master" name="Master Data" parent="menu_perpustakaan_root" sequence="10"/>
+
+  <menuitem id="menu_buku" name="Buku" parent="menu_perpustakaan_master" action="action_buku" sequence="10"/>
+
+  <menuitem id="menu_perpus" name="Transaksi Perpustakaan" parent="menu_perpustakaan_root" action="action_perpus" sequence="20"/>
+
+  <!-- Action Partner -->
+  <record id="action_perpus_partner" model="ir.actions.act_window">
+    <field name="name">Member</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+  </record>
+
+  <!-- Menu Item -->
+  <menuitem id="menu_perpus_partner" name="Member" parent="menu_perpustakaan_master" action="action_perpus_partner" sequence="15"/>
+</odoo>
